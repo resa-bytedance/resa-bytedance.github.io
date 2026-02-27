@@ -371,11 +371,11 @@ figcaption.image-caption {
 .toc-wrapper {
   position: fixed;
   top: 100px;
-  right: 20px;
-  left: auto;
-  width: 220px;
+  left: 12px;
+  right: auto;
+  width: 150px;
   background: #fff;
-  padding: 14px 16px;
+  padding: 10px 12px;
   border-radius: var(--resa-radius);
   border: 1px solid var(--resa-border);
   box-shadow: var(--resa-shadow);
@@ -383,8 +383,8 @@ figcaption.image-caption {
 }
 
 .toc-wrapper h4 {
-  margin: 0 0 10px 0;
-  font-size: 0.95rem;
+  margin: 0 0 8px 0;
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
@@ -395,13 +395,13 @@ figcaption.image-caption {
 }
 
 .toc-list li {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .toc-list a {
   color: var(--resa-text-light);
   text-decoration: none;
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   transition: color 0.15s ease;
 }
 
