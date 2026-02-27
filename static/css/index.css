@@ -480,6 +480,53 @@ figcaption.image-caption {
   }
 }
 
+/* ===== Reasoning Template ===== */
+.reasoning-template {
+  background: #fff;
+  border: 1px solid var(--resa-border);
+  border-radius: var(--resa-radius);
+  margin: 1.2rem 0;
+  overflow: hidden;
+  text-align: left;
+}
+
+.template-title {
+  background: var(--resa-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+}
+
+.template-body {
+  padding: 12px 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.template-body p {
+  margin: 2px 0 !important;
+}
+
+.template-body code {
+  background: #eef2f7;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 0.83rem;
+  color: #c0392b;
+}
+
+.tpl-placeholder {
+  color: #2980b9;
+  font-style: italic;
+}
+
+.tpl-condition {
+  color: #e67e22;
+  font-weight: 700;
+}
+
 /* ===== Result Tables ===== */
 .table-responsive {
   overflow-x: auto;

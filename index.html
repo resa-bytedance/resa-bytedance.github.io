@@ -34,6 +34,13 @@
     .table-responsive { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:1rem 0; }
     .table-caption { text-align:center; font-size:.9rem; color:#555; margin-top:8px; font-style:italic; padding:8px 0; }
     .table-note { font-size:.82rem; color:#555; margin-top:4px; text-align:center; }
+    .reasoning-template { background:#fff; border:1px solid #e0e0e0; border-radius:10px; margin:1.2rem 0; overflow:hidden; text-align:left; }
+    .template-title { background:#4A90D9; color:#fff; font-weight:600; font-size:.95rem; padding:8px 16px; }
+    .template-body { padding:12px 20px; font-family:'Courier New',monospace; font-size:.85rem; line-height:1.7; }
+    .template-body p { margin:2px 0!important; }
+    .template-body code { background:#eef2f7; padding:1px 4px; border-radius:3px; font-size:.83rem; color:#c0392b; }
+    .tpl-placeholder { color:#2980b9; font-style:italic; }
+    .tpl-condition { color:#e67e22; font-weight:700; }
     .bibtex-block { background:#E8EDF2!important; color:#2c3e50!important; border:1px solid #c8d0d8!important; border-radius:10px; padding:1.2rem 1.5rem; font-family:'Courier New',monospace; font-size:.88rem; line-height:1.6; overflow-x:auto; white-space:pre; }
   </style>
 
@@ -175,6 +182,23 @@
           <div class="content has-text-justified">
             <h3>Answer-Then-Check Reasoning Template</h3>
             <p>We adopt an <strong>"Answer-Then-Check"</strong> strategy where the model first plans its answer in the Chain-of-Thought by generating a summary of the answer, then checks whether it is safe or not before generating the actual response. This approach leverages the model's reasoning capabilities to perform safety evaluation as an integral part of the generation process, rather than as a separate post-hoc step.</p>
+
+            <div class="reasoning-template">
+              <div class="template-title">Reasoning Template</div>
+              <div class="template-body">
+                <p><strong>Query:</strong> <span class="tpl-placeholder">{Input Query}</span></p>
+                <p><strong>Response:</strong> <code>&lt;safety_check&gt;</code> I'll create an answer planning idea and verify its safety. The planning idea is as follows:</p>
+                <p><code>&lt;intended_answer_summary&gt;</code></p>
+                <p class="tpl-placeholder">{Summarization of Answer}</p>
+                <p><code>&lt;/intended_answer_summary&gt;</code></p>
+                <p>But wait, let me check if the planning idea is safe.</p>
+                <p class="tpl-placeholder">{Safety Analysis}</p>
+                <p><code>&lt;/safety_check&gt;</code></p>
+                <p><span class="tpl-condition">IF SAFE:</span> <span class="tpl-placeholder">{Final Answer}</span></p>
+                <p><span class="tpl-condition">ELSE:</span> Sorry, I cannot answer as it violates my output policy.</p>
+              </div>
+            </div>
+
             <p>We also introduce <strong>Adaptive Answer-Then-Check</strong>, which dynamically bypasses the safety-check process for clearly benign queries, eliminating additional cost and achieving computational parity with the base model on normal inputs.</p>
 
             <h3>ReSA-RL: RL-based Answer-Then-Check</h3>
