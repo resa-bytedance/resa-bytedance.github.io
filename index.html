@@ -35,8 +35,6 @@
     .table-caption { text-align:center; font-size:.9rem; color:#555; margin-top:8px; font-style:italic; padding:8px 0; }
     .table-note { font-size:.82rem; color:#555; margin-top:4px; text-align:center; }
     .bibtex-block { background:#E8EDF2!important; color:#2c3e50!important; border:1px solid #c8d0d8!important; border-radius:10px; padding:1.2rem 1.5rem; font-family:'Courier New',monospace; font-size:.88rem; line-height:1.6; overflow-x:auto; white-space:pre; }
-    .bibtex-copy-btn-below { background:#4A90D9; border:1px solid #3A7BC8; color:#fff; padding:6px 16px; border-radius:5px; cursor:pointer; font-size:.85rem; transition:background .2s; }
-    .bibtex-copy-btn-below:hover { background:#3A7BC8; }
   </style>
 
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -732,12 +730,9 @@
         <div class="bibtex-block" id="bibtex-content">@inproceedings{cao2026resa,
   title     = {Reasoned Safety Alignment: Ensuring Jailbreak Defense via Answer-Then-Check},
   author    = {Cao, Chentao and Xu, Xiaojun and Han, Bo and Li, Hang},
-  booktitle = {International Conference on Learning Representations (ICLR)},
+  booktitle = {ICLR},
   year      = {2026}
 }</div>
-        <div style="text-align: right; margin-top: 8px;">
-          <button class="bibtex-copy-btn-below" onclick="copyBibtex()">Copy BibTeX</button>
-        </div>
       </div>
     </div>
   </section>
@@ -763,16 +758,6 @@
 
   <!-- Scripts -->
   <script>
-    // Copy BibTeX
-    function copyBibtex() {
-      const text = document.getElementById('bibtex-content').textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = document.querySelector('.bibtex-copy-btn');
-        btn.textContent = 'Copied!';
-        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
-      });
-    }
-
     // TOC active state
     document.addEventListener('DOMContentLoaded', function () {
       const tocLinks = Array.from(document.querySelectorAll('.toc-list a'));
