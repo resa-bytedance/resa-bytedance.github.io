@@ -340,10 +340,10 @@ figcaption.image-caption {
 
 /* ===== BibTeX Block ===== */
 .bibtex-block {
-  background: var(--resa-bg-light) !important;
-  color: var(--resa-text) !important;
-  border: 1px solid var(--resa-border);
-  border-radius: var(--resa-radius);
+  background: #F8F9FA !important;
+  color: #2c3e50 !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 10px;
   padding: 1.2rem 1.5rem;
   font-family: 'Courier New', monospace;
   font-size: 0.88rem;
@@ -357,9 +357,9 @@ figcaption.image-caption {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: var(--resa-primary);
-  border: 1px solid var(--resa-primary-dark);
-  color: #fff;
+  background: #4A90D9 !important;
+  border: 1px solid #3A7BC8 !important;
+  color: #fff !important;
   padding: 4px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -368,7 +368,7 @@ figcaption.image-caption {
 }
 
 .bibtex-copy-btn:hover {
-  background: var(--resa-primary-dark);
+  background: #3A7BC8 !important;
 }
 
 /* ===== Table of Contents ===== */
@@ -491,71 +491,67 @@ figcaption.image-caption {
   margin: 1rem 0;
 }
 
-.result-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
-  line-height: 1.5;
+table.result-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 0.88rem !important;
+  line-height: 1.5 !important;
   min-width: 600px;
 }
 
-.result-table th,
-.result-table td {
+table.result-table th,
+table.result-table td {
   text-align: center !important;
+  padding: 8px 10px !important;
+  border: 1px solid #e0e0e0 !important;
+  white-space: nowrap !important;
 }
 
-.result-table th,
-.result-table td {
-  padding: 8px 10px;
-  border: 1px solid var(--resa-border);
-  white-space: nowrap;
+table.result-table thead th {
+  background: #4A90D9 !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
 }
 
-.result-table thead th {
-  background: var(--resa-primary);
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.85rem;
-}
-
-.result-table tbody tr:nth-child(even) {
+table.result-table tbody tr:nth-child(even) {
   background: #f5f8fc;
 }
 
-.result-table tbody tr:hover {
-  background: #e8f0fe;
+table.result-table tbody tr:hover {
+  background: #e8f0fe !important;
 }
 
-.result-table td:first-child,
-.result-table th:first-child {
-  font-weight: 600;
+table.result-table td:first-child,
+table.result-table th:first-child {
+  font-weight: 600 !important;
 }
 
-.result-table .val-best {
-  font-weight: 700;
+table.result-table .val-best {
+  font-weight: 700 !important;
 }
 
-.result-table .val-second {
-  text-decoration: underline;
+table.result-table .val-second {
+  text-decoration: underline !important;
 }
 
-.result-table .method-ours {
+table.result-table .method-ours {
   background: #eef6ee !important;
 }
 
-.result-table .category-cell {
-  font-weight: 600;
+table.result-table .category-cell {
+  font-weight: 600 !important;
   background: #f0f4f8 !important;
-  vertical-align: middle;
+  vertical-align: middle !important;
 }
 
-.result-table .model-cell {
-  font-weight: 600;
+table.result-table .model-cell {
+  font-weight: 600 !important;
   background: #f0f4f8 !important;
-  vertical-align: middle;
+  vertical-align: middle !important;
 }
 
-.result-table caption,
+table.result-table caption,
 .table-caption {
   text-align: center;
   font-size: 0.9rem;
@@ -573,10 +569,10 @@ figcaption.image-caption {
   text-align: center;
 }
 
-.table-compact {
-  max-width: 560px;
-  margin: 0 auto;
-  min-width: auto;
+table.result-table.table-compact {
+  max-width: 560px !important;
+  margin: 0 auto !important;
+  min-width: auto !important;
 }
 
 /* ===== Carousel / Stats ===== */
