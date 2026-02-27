@@ -39,16 +39,14 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <div class="conference-badge">ICLR 2026</div>
             <h2 class="subtitle is-3 publication-subtitle">
               Reasoned Safety Alignment: Ensuring Jailbreak Defense via Answer-Then-Check
             </h2>
-            <p class="hero-tagline">Published as a conference paper at ICLR 2026</p>
 
             <!-- Authors -->
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?hl=en&user=vZPl_oQAAAAJ&view_op=list_works&sortby=pubdate" target="_blank">Chentao Cao</a><sup>1,2,*</sup>,
+                <a href="https://aboriginer.github.io/" target="_blank">Chentao Cao</a><sup>1,2,*</sup>,
                 <a href="https://scholar.google.com/citations?hl=zh-CN&user=rdMZZQwAAAAJ&view_op=list_works" target="_blank">Xiaojun Xu</a><sup>1</sup>,
                 <a href="https://bhanml.github.io/" target="_blank">Bo Han</a><sup>2</sup>,
                 <a href="https://hangli-hl.github.io/" target="_blank">Hang Li</a><sup>1</sup>
@@ -63,6 +61,12 @@
             <!-- Links -->
             <div class="column has-text-centered">
               <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://openreview.net/forum?id=DK6AToxJNo" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                    <span class="icon"><i class="fas fa-globe"></i></span>
+                    <span>ICLR 2026</span>
+                  </a>
+                </span>
                 <span class="link-block">
                   <a href="https://arxiv.org/pdf/2509.11629" class="external-link button is-normal is-rounded is-dark" target="_blank">
                     <span class="icon"><i class="ai ai-arxiv"></i></span>
@@ -103,7 +107,7 @@
         <div class="column is-four-fifths">
           <h2 class="title is-3 section-title">Abstract</h2>
           <div class="content has-text-justified">
-            <p>As large language models (LLMs) continue to advance in capabilities, ensuring their safety against jailbreak attacks remains a critical challenge. In this paper, we introduce a novel safety alignment approach called <strong>"Answer-Then-Check"</strong>, which enhances LLM robustness against malicious prompts by applying thinking ability to mitigate jailbreaking problems before producing a final answer to the user. Our method enables models to directly answer the question in their "thought" and then critically evaluate its safety before deciding whether to provide it. To implement this approach, we construct the <strong>Reasoned Safety Alignment (ReSA)</strong> dataset, comprising 80K examples that teach models to reason through direct responses and then analyze their safety. Experimental results demonstrate that our approach achieves the Pareto frontier with superior safety capability while decreasing over-refusal rates. Notably, models fine-tuned with ReSA maintain general reasoning capabilities on benchmarks like MMLU, MATH500, and HumanEval. Besides, our method equips models with the ability to perform <strong>"safe completion"</strong>&mdash;unlike post-hoc methods that can only reject harmful queries, our model can provide helpful and safe alternative responses for sensitive topics. Furthermore, training on a small subset of just 500 examples can achieve comparable performance, suggesting that safety alignment may require less data than previously assumed.</p>
+            <p>As large language models (LLMs) continue to advance in capabilities, ensuring their safety against jailbreak attacks remains a critical challenge. In this paper, we introduce a novel safety alignment approach called "Answer-Then-Check", which enhances LLM robustness against malicious prompts by applying thinking ability to mitigate jailbreaking problems before producing a final answer to the user. Our method enables models to answer the question in their "thoughts" directly and then critically evaluate its safety before deciding whether to provide it. To implement this approach, we construct the Reasoned Safety Alignment (ReSA) dataset, comprising 80K samples that teach models to reason through direct responses and then analyze their safety. Experimental results demonstrate that our approach achieves the Pareto frontier with superior safety capability while decreasing over-refusal rates. Notably, the fine-tuned model maintains general reasoning capabilities on benchmarks like MMLU, MATH500, and HumanEval. Besides, our method equips models with the ability to perform "safe completion", while post-hoc detection methods can only directly reject sensitive harmful queries (e.g., self-harm). Our results show that inference-time strategies alone are insufficient, highlighting the necessity of safety training, and we find even 500 samples can yield performance comparable to the entire dataset, suggesting a promising path for data-efficient safety alignment. The dataset is publicly available at: <a href="https://huggingface.co/datasets/ByteDance-Seed/ReSA" target="_blank">https://huggingface.co/datasets/ByteDance-Seed/ReSA</a>.</p>
           </div>
 
           <!-- Key Contributions -->
@@ -111,7 +115,7 @@
             <div class="contribution-card">
               <div class="card-icon">&#x1F9E0;</div>
               <div class="card-title">Answer-Then-Check Strategy</div>
-              <div class="card-desc">A novel reasoning template that first generates a response in thought, then critically evaluates its safety before outputting. Includes Adaptive and RL-based variants.</div>
+              <div class="card-desc">A novel reasoning template that first generates a response in thought, then critically evaluates its safety before outputting. Includes <strong>ReSA-SFT</strong>, <strong>Adaptive Answer-Then-Check</strong> (zero overhead on benign queries), and <strong>ReSA-RL</strong> (RL-based refinement with safety, refusal, and format rewards) variants.</div>
             </div>
             <div class="contribution-card">
               <div class="card-icon">&#x1F4CA;</div>
@@ -126,7 +130,7 @@
             <div class="contribution-card">
               <div class="card-icon">&#x1F3AF;</div>
               <div class="card-title">Pareto Frontier Performance</div>
-              <div class="card-desc">Achieves superior safety while maintaining low over-refusal rates and preserving general capabilities (MMLU, MATH500, HumanEval).</div>
+              <div class="card-desc">ReSA-RL achieves near-perfect safety (0.99+ avg DSR) while maintaining low over-refusal rates and preserving general capabilities (MMLU, MATH500, HumanEval).</div>
             </div>
           </div>
         </div>
@@ -146,14 +150,23 @@
           </div>
 
           <figure class="paper-figure">
-            <img class="img-scale-80" src="img/motivation.png" alt="Motivation: Answer-Then-Check strategy">
+            <img class="img-scale-80" src="img/motivation_pdf.png" alt="Motivation: Answer-Then-Check strategy">
             <figcaption class="image-caption">Figure 1: Comparison of different safety alignment strategies. ReSA's Answer-Then-Check approach first generates a response draft, then evaluates its safety.</figcaption>
           </figure>
 
           <div class="content has-text-justified">
             <h3>Answer-Then-Check Reasoning Template</h3>
             <p>We adopt an <strong>"Answer-Then-Check"</strong> strategy where the model first plans its answer in the Chain-of-Thought by generating a summary of the answer, then checks whether it is safe or not before generating the actual response. This approach leverages the model's reasoning capabilities to perform safety evaluation as an integral part of the generation process, rather than as a separate post-hoc step.</p>
-            <p>We also introduce two variants: <strong>Adaptive ATC</strong>, which skips safety reasoning for clearly benign queries (resulting in zero overhead on benign inputs), and <strong>RL-based ATC</strong>, which uses reinforcement learning to further refine the safety reasoning process.</p>
+            <p>We also introduce <strong>Adaptive Answer-Then-Check</strong>, which dynamically bypasses the safety-check process for clearly benign queries, eliminating additional cost and achieving computational parity with the base model on normal inputs.</p>
+
+            <h3>ReSA-RL: RL-based Answer-Then-Check</h3>
+            <p>While ReSA-SFT teaches the Answer-Then-Check pattern via supervised fine-tuning, the intended answer summary it generates may still contain unsafe content. To address this, we introduce <strong>ReSA-RL</strong>, which uses <strong>GRPO-based reinforcement learning</strong> on ReSA prompts to further refine the safety reasoning process. ReSA-RL employs three reward signals:</p>
+            <ul>
+              <li><strong>Safety reward:</strong> Evaluates whether the final answer is safe using LlamaGuard</li>
+              <li><strong>Refusal reward:</strong> Penalizes over-refusal on benign queries to maintain helpfulness</li>
+              <li><strong>Format reward:</strong> Ensures the model follows the structured Answer-Then-Check format</li>
+            </ul>
+            <p>ReSA-RL dramatically improves the safety of the intended answer summary (0.99+ DSR vs. 0.79 for ReSA-SFT), achieving near-perfect defense across all jailbreak attacks while maintaining low over-refusal rates.</p>
 
             <h3>ReSA Dataset Construction</h3>
             <p>To implement the Answer-Then-Check approach, we construct the ReSA dataset comprising 80K examples through a systematic 3-stage pipeline:</p>
@@ -164,10 +177,69 @@
             </ul>
           </div>
 
-          <figure class="paper-figure">
-            <img class="img-scale-80" src="img/dataset.png" alt="ReSA Dataset Pipeline">
-            <figcaption class="image-caption">Figure 2: The 3-stage pipeline for constructing the ReSA dataset, producing 80K high-quality Answer-Then-Check training examples.</figcaption>
-          </figure>
+          <div class="table-responsive">
+            <table class="result-table table-compact">
+              <thead>
+                <tr>
+                  <th>Query Type</th>
+                  <th>Total Count</th>
+                  <th>Jailbreak Method</th>
+                  <th>Sample Count</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Vanilla Harmful</td>
+                  <td>12,412</td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Vanilla Benign</td>
+                  <td>16,179</td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td rowspan="4" class="model-cell">Adversarial Harmful</td>
+                  <td rowspan="4">22,763</td>
+                  <td>WJ</td>
+                  <td>15,050</td>
+                </tr>
+                <tr>
+                  <td>PAIR</td>
+                  <td>3,359</td>
+                </tr>
+                <tr>
+                  <td>PAP</td>
+                  <td>3,999</td>
+                </tr>
+                <tr>
+                  <td>GPTFuzzer</td>
+                  <td>355</td>
+                </tr>
+                <tr>
+                  <td rowspan="4" class="model-cell">Adversarial Benign</td>
+                  <td rowspan="4">29,072</td>
+                  <td>WJ</td>
+                  <td>19,822</td>
+                </tr>
+                <tr>
+                  <td>PAIR</td>
+                  <td>4,003</td>
+                </tr>
+                <tr>
+                  <td>PAP</td>
+                  <td>4,823</td>
+                </tr>
+                <tr>
+                  <td>GPTFuzzer</td>
+                  <td>424</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-caption">Table: Distribution of data samples across different query types and jailbreak methods in the ReSA dataset (80,426 samples in total).</p>
         </div>
       </div>
     </div>
@@ -183,61 +255,371 @@
             <p>ReSA achieves the Pareto frontier with superior safety capability while decreasing over-refusal rates across multiple benchmarks. Below we present results across four key dimensions.</p>
           </div>
 
-          <!-- Safety Performance -->
+          <!-- Table A: Main Safety Results -->
           <div class="result-subsection">
             <h3>Safety Performance</h3>
             <div class="content has-text-justified">
-              <p>Our method outperforms 13 other defense methods&mdash;including fine-tuned approaches, post-hoc detection methods, and state-of-the-art reasoning/general LLMs with prompt engineering&mdash;and demonstrates robustness against diverse jailbreak attack methods.</p>
+              <p>ReSA-trained models consistently outperform all baselines across jailbreak attacks. ReSA-RL achieves near-perfect defense (0.99+ avg DSR), substantially exceeding post-hoc detection, STAIR-DPO, and WJ-SFT.</p>
             </div>
-            <figure class="paper-figure">
-              <img class="img-scale-80" src="img/safety_result1.png" alt="Safety Result 1">
-              <figcaption class="image-caption">Table 2: Safety performance against different jailbreak methods, evaluated by three independent evaluators.</figcaption>
-            </figure>
+            <div class="table-responsive">
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Base Model</th>
+                    <th>Method</th>
+                    <th>None</th>
+                    <th>PAIR-GPT</th>
+                    <th>PAIR</th>
+                    <th>PAP</th>
+                    <th>GPTFuzzer</th>
+                    <th>ReNeLLM</th>
+                    <th>TAP</th>
+                    <th>DeepInception</th>
+                    <th>Avg</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Llama3.1-8B-Instruct -->
+                  <tr>
+                    <td class="model-cell" rowspan="6">Llama3.1-8B-Instruct</td>
+                    <td>Base</td>
+                    <td class="val-second">0.9968</td><td>0.3514</td><td>0.2620</td><td>0.6486</td><td>0.1374</td><td>0.6613</td><td>0.4249</td><td>0.5240</td><td>0.5008</td>
+                  </tr>
+                  <tr>
+                    <td>Post-hoc (LlamaGuard)</td>
+                    <td class="val-best">1.0000</td><td>0.4633</td><td>0.5080</td><td>0.7157</td><td class="val-second">0.9968</td><td class="val-second">0.9297</td><td>0.6581</td><td>0.9776</td><td>0.7812</td>
+                  </tr>
+                  <tr>
+                    <td>STAIR-DPO</td>
+                    <td class="val-best">1.0000</td><td>0.6837</td><td>0.4217</td><td>0.9425</td><td class="val-best">1.0000</td><td>0.8339</td><td>0.6933</td><td>0.9872</td><td>0.8203</td>
+                  </tr>
+                  <tr>
+                    <td>WJ-SFT</td>
+                    <td>0.9936</td><td>0.4473</td><td>0.3291</td><td>0.7604</td><td>0.9425</td><td>0.6773</td><td>0.6038</td><td>0.9840</td><td>0.7173</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT (Ours)</td>
+                    <td>0.9936</td><td class="val-second">0.8978</td><td class="val-second">0.6965</td><td class="val-second">0.9681</td><td>0.9553</td><td>0.8818</td><td class="val-second">0.8498</td><td class="val-second">0.9936</td><td class="val-second">0.9046</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-RL (Ours)</td>
+                    <td class="val-best">1.0000</td><td class="val-best">0.9872</td><td class="val-best">0.9681</td><td class="val-best">0.9968</td><td class="val-best">1.0000</td><td class="val-best">0.9968</td><td class="val-best">0.9968</td><td class="val-best">1.0000</td><td class="val-best">0.9932</td>
+                  </tr>
+                  <!-- Qwen2.5-7B-Instruct -->
+                  <tr>
+                    <td class="model-cell" rowspan="6">Qwen2.5-7B-Instruct</td>
+                    <td>Base</td>
+                    <td>0.9744</td><td>0.2173</td><td>0.1086</td><td>0.3866</td><td>0.1917</td><td>0.0863</td><td>0.1693</td><td>0.3706</td><td>0.3131</td>
+                  </tr>
+                  <tr>
+                    <td>Post-hoc (LlamaGuard)</td>
+                    <td class="val-best">1.0000</td><td>0.3610</td><td>0.5783</td><td>0.5815</td><td>0.9840</td><td class="val-second">0.9137</td><td>0.6933</td><td>0.9489</td><td>0.7576</td>
+                  </tr>
+                  <tr>
+                    <td>STAIR-DPO*</td>
+                    <td class="val-best">1.0000</td><td>0.6677</td><td>0.3514</td><td>0.9457</td><td class="val-best">1.0000</td><td>0.5591</td><td>0.6965</td><td>0.9649</td><td>0.7732</td>
+                  </tr>
+                  <tr>
+                    <td>WJ-SFT</td>
+                    <td class="val-second">0.9936</td><td>0.3387</td><td>0.2780</td><td>0.6869</td><td class="val-second">0.9904</td><td>0.5495</td><td>0.4058</td><td>0.9521</td><td>0.6494</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT (Ours)</td>
+                    <td>0.9904</td><td class="val-second">0.8435</td><td class="val-second">0.7188</td><td class="val-second">0.9489</td><td>0.9776</td><td>0.8466</td><td class="val-second">0.8562</td><td class="val-second">0.9808</td><td class="val-second">0.8953</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-RL (Ours)</td>
+                    <td class="val-best">1.0000</td><td class="val-best">0.9936</td><td class="val-best">0.9617</td><td class="val-best">1.0000</td><td class="val-best">1.0000</td><td class="val-best">0.9169</td><td class="val-best">0.9968</td><td class="val-best">1.0000</td><td class="val-best">0.9836</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-caption">Table 1: Safety performance (DSR) against different jailbreak methods on StrongREJECT, evaluated by LlamaGuard. <strong>Bold</strong> = best; <u>underline</u> = second best.</p>
+            <p class="table-note">*STAIR-DPO's base model is Qwen2-7B-Instruct. Results are consistent across other evaluators (StrongREJECT evaluator and HarmBench classifier).</p>
           </div>
 
-          <!-- Comparison with SOTA -->
+          <!-- Table B: Comparison with SOTA Models -->
           <div class="result-subsection">
             <h3>Comparison with State-of-the-Art LLMs</h3>
             <div class="content has-text-justified">
-              <p>When compared with advanced models including GPT-4o, Claude, and other leading LLMs, ReSA-trained models achieve competitive or superior safety performance, even when these models use sophisticated prompt engineering for safety.</p>
+              <p>ReSA-RL achieves the Pareto frontier with the strongest safety and lowest over-refusal rates, surpassing all compared SOTA models and defense methods. While prompt engineering boosts safety for general LLMs, it severely degrades over-refusal accuracy.</p>
             </div>
-            <figure class="paper-figure">
-              <img class="img-scale-80" src="img/safety_result2.png" alt="Safety Result 2">
-              <figcaption class="image-caption">Table 4: Comparison with advanced models and other defense methods on safety benchmarks.</figcaption>
-            </figure>
+            <div class="table-responsive">
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Defense Category</th>
+                    <th>Method</th>
+                    <th>PAIR-GPT</th>
+                    <th>PAP</th>
+                    <th>Avg (Safety)</th>
+                    <th>XSTest</th>
+                    <th>OKTest</th>
+                    <th>Avg (OR)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="category-cell">Post-hoc</td>
+                    <td>GuardReasoner</td>
+                    <td>0.4569</td><td>0.6773</td><td>0.5671</td><td>0.9320</td><td>0.8400</td><td>0.8860</td>
+                  </tr>
+                  <tr>
+                    <td class="category-cell" rowspan="2">Fine-tuning</td>
+                    <td>Realsafe-r1</td>
+                    <td>0.7284</td><td class="val-second">0.9808</td><td>0.8546</td><td>0.5160</td><td>0.5967</td><td>0.5565</td>
+                  </tr>
+                  <tr>
+                    <td>Deliberative Alignment*</td>
+                    <td>0.8466</td><td>0.9553</td><td>0.9000</td><td class="val-second">0.9720</td><td>0.8767</td><td>0.9244</td>
+                  </tr>
+                  <tr>
+                    <td class="category-cell" rowspan="3">SOTA General LLM</td>
+                    <td>GPT-4.1</td>
+                    <td>0.3131</td><td>0.5463</td><td>0.4297</td><td>0.9440</td><td>0.8933</td><td>0.9187</td>
+                  </tr>
+                  <tr>
+                    <td>Claude Sonnet 4</td>
+                    <td>0.8466</td><td>0.9425</td><td>0.8946</td><td>0.8960</td><td>0.7433</td><td>0.8197</td>
+                  </tr>
+                  <tr>
+                    <td>DeepSeek-V3</td>
+                    <td>0.1757</td><td>0.5304</td><td>0.3531</td><td>0.9480</td><td class="val-second">0.9100</td><td>0.9290</td>
+                  </tr>
+                  <tr>
+                    <td class="category-cell" rowspan="2">SOTA General LLM + Goal Priority</td>
+                    <td>GPT-4.1</td>
+                    <td>0.7220</td><td>0.8530</td><td>0.7875</td><td>0.9080</td><td>0.9033</td><td>0.9057</td>
+                  </tr>
+                  <tr>
+                    <td>DeepSeek-V3</td>
+                    <td>0.8435</td><td>0.7571</td><td>0.8003</td><td>0.8120</td><td>0.8033</td><td>0.8077</td>
+                  </tr>
+                  <tr>
+                    <td class="category-cell" rowspan="2">SOTA Reasoning LLM</td>
+                    <td>DeepSeek-R1</td>
+                    <td>0.6997</td><td>0.8211</td><td>0.7604</td><td>0.8080</td><td>0.6600</td><td>0.7340</td>
+                  </tr>
+                  <tr>
+                    <td>o4-mini</td>
+                    <td>0.7476</td><td>0.8562</td><td>0.8019</td><td>0.9000</td><td class="val-second">0.9100</td><td>0.9050</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td class="category-cell" rowspan="2">Answer-Then-Check</td>
+                    <td>ReSA-SFT (Ours)</td>
+                    <td class="val-second">0.8978</td><td>0.9681</td><td class="val-second">0.9330</td><td class="val-second">0.9720</td><td>0.8867</td><td class="val-second">0.9294</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-RL (Ours)</td>
+                    <td class="val-best">0.9872</td><td class="val-best">0.9968</td><td class="val-best">0.9920</td><td class="val-best">0.9920</td><td class="val-best">0.9533</td><td class="val-best">0.9727</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-caption">Table 2: Comparison with advanced models and other defenses. LlamaGuard is the safety evaluator. Safety is measured by DSR; over-refusal is measured by over-refusal accuracy. <strong>Bold</strong> = best; <u>underline</u> = second best.</p>
+            <p class="table-note">*Deliberative Alignment is implemented by ourselves. Since Claude Sonnet 4 already exhibits a high over-refusal rate, we don't apply goal priority defense to it.</p>
           </div>
 
-          <!-- General Capabilities -->
+          <!-- Table C: General Capabilities -->
           <div class="result-subsection">
             <h3>General Capabilities</h3>
             <div class="content has-text-justified">
-              <p>Evaluations across mathematical reasoning (MATH500), coding (HumanEval), and general knowledge (MMLU) confirm that ReSA effectively enhances safety while maintaining the model's general capabilities&mdash;a critical requirement for practical deployment.</p>
+              <p>ReSA-trained models maintain general reasoning capabilities while enhancing safety. Across MATH500, HumanEval, and MMLU, ReSA shows competitive performance compared to baselines&mdash;a critical requirement for practical deployment.</p>
             </div>
-            <figure class="paper-figure">
-              <img class="img-scale-80" src="img/general.png" alt="General Capabilities">
-              <figcaption class="image-caption">Table 3: General capabilities on mathematical, coding, and general reasoning tasks.</figcaption>
-            </figure>
+            <div class="table-responsive">
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Base Model</th>
+                    <th>Method</th>
+                    <th>MATH500</th>
+                    <th>HumanEval</th>
+                    <th>MMLU</th>
+                    <th>Avg (GR)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="model-cell" rowspan="6">Llama3.1-8B-Instruct</td>
+                    <td>Base</td>
+                    <td class="val-best">50.60%</td><td class="val-best">65.85%</td><td class="val-second">69.09%</td><td class="val-best">61.85%</td>
+                  </tr>
+                  <tr>
+                    <td>Post-hoc (LlamaGuard)</td>
+                    <td class="val-best">50.60%</td><td class="val-best">65.85%</td><td>68.21%</td><td class="val-second">61.55%</td>
+                  </tr>
+                  <tr>
+                    <td>STAIR-DPO</td>
+                    <td class="val-second">49.60%</td><td>63.41%</td><td class="val-best">71.12%</td><td>61.38%</td>
+                  </tr>
+                  <tr>
+                    <td>WJ-SFT</td>
+                    <td>42.60%</td><td>58.54%</td><td>62.20%</td><td>54.45%</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT (Ours)</td>
+                    <td>49.00%</td><td class="val-second">64.02%</td><td>66.32%</td><td>59.78%</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-RL (Ours)</td>
+                    <td>46.20%</td><td>60.37%</td><td>66.16%</td><td>57.58%</td>
+                  </tr>
+                  <tr>
+                    <td class="model-cell" rowspan="6">Qwen2.5-7B-Instruct</td>
+                    <td>Base</td>
+                    <td class="val-best">77.00%</td><td class="val-best">82.32%</td><td class="val-best">74.68%</td><td class="val-best">78.00%</td>
+                  </tr>
+                  <tr>
+                    <td>Post-hoc (LlamaGuard)</td>
+                    <td class="val-best">77.00%</td><td class="val-best">82.32%</td><td class="val-second">73.68%</td><td class="val-second">77.67%</td>
+                  </tr>
+                  <tr>
+                    <td>STAIR-DPO*</td>
+                    <td>56.00%</td><td>71.34%</td><td>68.65%</td><td>65.33%</td>
+                  </tr>
+                  <tr>
+                    <td>WJ-SFT</td>
+                    <td>70.40%</td><td>76.83%</td><td>69.02%</td><td>72.08%</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT (Ours)</td>
+                    <td>74.80%</td><td>79.27%</td><td>72.44%</td><td>75.50%</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-RL (Ours)</td>
+                    <td class="val-second">75.40%</td><td class="val-second">80.49%</td><td>72.26%</td><td>76.05%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-caption">Table 3: General reasoning capabilities. Accuracy is the metric. <strong>Bold</strong> = best; <u>underline</u> = second best.</p>
           </div>
 
-          <!-- Over-refusal -->
+          <!-- Table D: Over-Refusal -->
           <div class="result-subsection">
             <h3>Over-Refusal</h3>
             <div class="content has-text-justified">
-              <p>ReSA maintains a significantly lower over-refusal rate compared to existing fine-tuned safety methods. This means the model correctly responds to benign queries while still defending against attacks.</p>
+              <p>ReSA-RL achieves the best over-refusal accuracy (e.g., 99.20% and 99.60% on XSTest for Llama and Qwen), effectively distinguishing between benign and harmful queries. STAIR-DPO, while strong in defense, shows poor over-refusal performance.</p>
             </div>
-            <figure class="paper-figure">
-              <img class="img-scale-80" src="img/overrefusal.png" alt="Over-refusal">
-              <figcaption class="image-caption">Over-refusal rates on standard over-refusal benchmarks.</figcaption>
-            </figure>
+            <div class="table-responsive">
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Base Model</th>
+                    <th>Method</th>
+                    <th>XSTest</th>
+                    <th>OKTest</th>
+                    <th>WJ-Eval</th>
+                    <th>Avg (OR)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="model-cell" rowspan="6">Llama3.1-8B-Instruct</td>
+                    <td>Base</td>
+                    <td>93.60%</td><td>85.00%</td><td class="val-best">99.20%</td><td>93.27%</td>
+                  </tr>
+                  <tr>
+                    <td>Post-hoc (LlamaGuard)</td>
+                    <td>93.60%</td><td>85.00%</td><td class="val-second">98.80%</td><td>92.47%</td>
+                  </tr>
+                  <tr>
+                    <td>STAIR-DPO</td>
+                    <td>64.00%</td><td>77.33%</td><td>89.60%</td><td>76.98%</td>
+                  </tr>
+                  <tr>
+                    <td>WJ-SFT</td>
+                    <td>94.80%</td><td>85.67%</td><td>96.40%</td><td>92.29%</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT (Ours)</td>
+                    <td class="val-second">97.20%</td><td class="val-second">88.67%</td><td class="val-best">99.20%</td><td class="val-second">95.02%</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-RL (Ours)</td>
+                    <td class="val-best">99.20%</td><td class="val-best">95.33%</td><td>96.00%</td><td class="val-best">96.84%</td>
+                  </tr>
+                  <tr>
+                    <td class="model-cell" rowspan="6">Qwen2.5-7B-Instruct</td>
+                    <td>Base</td>
+                    <td>94.40%</td><td>85.00%</td><td class="val-best">99.20%</td><td>92.87%</td>
+                  </tr>
+                  <tr>
+                    <td>Post-hoc (LlamaGuard)</td>
+                    <td>94.40%</td><td>85.00%</td><td class="val-second">98.80%</td><td>92.73%</td>
+                  </tr>
+                  <tr>
+                    <td>STAIR-DPO*</td>
+                    <td>58.40%</td><td>77.00%</td><td>90.00%</td><td>75.13%</td>
+                  </tr>
+                  <tr>
+                    <td>WJ-SFT</td>
+                    <td>94.80%</td><td>83.00%</td><td>97.20%</td><td>91.66%</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT (Ours)</td>
+                    <td class="val-second">96.40%</td><td class="val-second">88.67%</td><td>98.40%</td><td class="val-second">94.49%</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-RL (Ours)</td>
+                    <td class="val-best">99.60%</td><td class="val-best">99.67%</td><td>88.80%</td><td class="val-best">96.02%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-caption">Table 4: Over-refusal accuracy on standard benchmarks. Higher is better. <strong>Bold</strong> = best; <u>underline</u> = second best.</p>
           </div>
 
-          <!-- Data Efficiency & Efficiency Analysis -->
+          <!-- Table E: Efficiency Analysis -->
           <div class="result-subsection">
             <h3>Efficiency Analysis</h3>
             <div class="content has-text-justified">
-              <p><strong>Data efficiency:</strong> Training on a small subset of just 500 examples can achieve comparable safety performance to using the full 80K dataset, suggesting that safety alignment may require far less data than previously assumed.</p>
-              <p><strong>Inference efficiency:</strong> ReSA-SFT is faster on adversarial inputs compared to post-hoc methods since it integrates safety reasoning into the generation process. The Adaptive ATC variant has <strong>zero overhead</strong> on benign queries, as it intelligently skips safety reasoning when the query is clearly safe.</p>
+              <p><strong>Data efficiency:</strong> Training on a small subset of just 500 samples can achieve comparable safety performance to using the full 80K dataset, suggesting a promising path for data-efficient safety alignment.</p>
+              <p><strong>Inference efficiency:</strong> ReSA-SFT is <em>faster</em> on adversarial inputs since it detects unsafe intent early and issues brief refusals. The Adaptive Answer-Then-Check variant achieves computational parity with the base model on benign queries.</p>
             </div>
+            <div class="table-responsive">
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Base Model</th>
+                    <th>Method</th>
+                    <th>StrongREJECT Length</th>
+                    <th>StrongREJECT Runtime</th>
+                    <th>MATH500 Length</th>
+                    <th>MATH500 Runtime</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="model-cell" rowspan="3">Llama3.1-8B-Instruct</td>
+                    <td>Base</td>
+                    <td>537.89</td><td>190s</td><td>833.87</td><td>80s</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT</td>
+                    <td class="val-best">397.78</td><td class="val-best">27s</td><td>1123.60</td><td>91s</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT-Adaptive</td>
+                    <td>420.80</td><td>29s</td><td class="val-best">711.57</td><td class="val-best">70s</td>
+                  </tr>
+                  <tr>
+                    <td class="model-cell" rowspan="3">Qwen2.5-7B-Instruct</td>
+                    <td>Base</td>
+                    <td>642.75</td><td>177s</td><td class="val-best">550.20</td><td class="val-best">58s</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT</td>
+                    <td>461.62</td><td>46s</td><td>910.97</td><td>77s</td>
+                  </tr>
+                  <tr class="method-ours">
+                    <td>ReSA-SFT-Adaptive</td>
+                    <td class="val-best">434.87</td><td class="val-best">27s</td><td>599.94</td><td>62s</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-caption">Table 5: Efficiency analysis on StrongREJECT (harmful queries) and MATH500 (benign queries). "Length" is the average response token count. <strong>Bold</strong> = best.</p>
           </div>
 
         </div>
@@ -341,7 +723,7 @@
   <!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="content has-text-centered">
-      <p>This website is adapted from <a href="https://nerfies.github.io/">Nerfies</a> and <a href="https://octotools.github.io/">OctoTools</a>, and licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+      <p>This website is adapted from <a href="https://nerfies.github.io/">Nerfies</a> and licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
     </div>
   </footer>
 
