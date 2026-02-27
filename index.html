@@ -14,10 +14,30 @@
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet" href="./static/css/index.css?v=20260227">
+  <link rel="stylesheet" href="./static/css/index.css?v=20260228">
   <link rel="stylesheet" href="./static/css/navbar.css">
   <link rel="stylesheet" href="./static/css/top_button.css">
   <link rel="stylesheet" href="./static/css/video.css">
+
+  <!-- Inline critical styles to bypass CDN/browser cache -->
+  <style>
+    table.result-table { width:100%!important; border-collapse:collapse!important; font-size:.88rem!important; line-height:1.5!important; }
+    table.result-table th, table.result-table td { text-align:center!important; padding:8px 10px!important; border:1px solid #e0e0e0!important; white-space:nowrap!important; }
+    table.result-table thead th { background:#4A90D9!important; color:#fff!important; font-weight:600!important; font-size:.85rem!important; }
+    table.result-table tbody tr:nth-child(even) { background:#f5f8fc!important; }
+    table.result-table tbody tr:hover { background:#e8f0fe!important; }
+    table.result-table .val-best { font-weight:700!important; }
+    table.result-table .val-second { text-decoration:underline!important; }
+    table.result-table .method-ours { background:#eef6ee!important; }
+    table.result-table .model-cell, table.result-table .category-cell { font-weight:600!important; background:#f0f4f8!important; vertical-align:middle!important; }
+    table.result-table.table-compact { max-width:560px!important; margin:0 auto!important; min-width:auto!important; }
+    .table-responsive { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:1rem 0; }
+    .table-caption { text-align:center; font-size:.9rem; color:#555; margin-top:8px; font-style:italic; padding:8px 0; }
+    .table-note { font-size:.82rem; color:#555; margin-top:4px; text-align:center; }
+    .bibtex-block { background:#F8F9FA!important; color:#2c3e50!important; border:1px solid #e0e0e0!important; border-radius:10px; padding:1.2rem 1.5rem; font-family:'Courier New',monospace; font-size:.88rem; line-height:1.6; overflow-x:auto; position:relative; white-space:pre; }
+    .bibtex-copy-btn { position:absolute; top:8px; right:8px; background:#4A90D9!important; border:1px solid #3A7BC8!important; color:#fff!important; padding:4px 10px; border-radius:5px; cursor:pointer; font-size:.8rem; }
+    .bibtex-copy-btn:hover { background:#3A7BC8!important; }
+  </style>
 
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
