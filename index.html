@@ -34,9 +34,9 @@
     .table-responsive { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:1rem 0; }
     .table-caption { text-align:center; font-size:.9rem; color:#555; margin-top:8px; font-style:italic; padding:8px 0; }
     .table-note { font-size:.82rem; color:#555; margin-top:4px; text-align:center; }
-    .bibtex-block { background:#F8F9FA!important; color:#2c3e50!important; border:1px solid #e0e0e0!important; border-radius:10px; padding:1.2rem 1.5rem; font-family:'Courier New',monospace; font-size:.88rem; line-height:1.6; overflow-x:auto; position:relative; white-space:pre; }
-    .bibtex-copy-btn { position:absolute; top:8px; right:8px; background:#4A90D9!important; border:1px solid #3A7BC8!important; color:#fff!important; padding:4px 10px; border-radius:5px; cursor:pointer; font-size:.8rem; }
-    .bibtex-copy-btn:hover { background:#3A7BC8!important; }
+    .bibtex-block { background:#E8EDF2!important; color:#2c3e50!important; border:1px solid #c8d0d8!important; border-radius:10px; padding:1.2rem 1.5rem; font-family:'Courier New',monospace; font-size:.88rem; line-height:1.6; overflow-x:auto; white-space:pre; }
+    .bibtex-copy-btn-below { background:#4A90D9; border:1px solid #3A7BC8; color:#fff; padding:6px 16px; border-radius:5px; cursor:pointer; font-size:.85rem; transition:background .2s; }
+    .bibtex-copy-btn-below:hover { background:#3A7BC8; }
   </style>
 
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -735,7 +735,9 @@
   booktitle = {International Conference on Learning Representations (ICLR)},
   year      = {2026}
 }</div>
-        <button class="bibtex-copy-btn" onclick="copyBibtex()">Copy</button>
+        <div style="text-align: right; margin-top: 8px;">
+          <button class="bibtex-copy-btn-below" onclick="copyBibtex()">Copy BibTeX</button>
+        </div>
       </div>
     </div>
   </section>

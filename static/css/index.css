@@ -340,35 +340,31 @@ figcaption.image-caption {
 
 /* ===== BibTeX Block ===== */
 .bibtex-block {
-  background: #F8F9FA !important;
+  background: #E8EDF2 !important;
   color: #2c3e50 !important;
-  border: 1px solid #e0e0e0 !important;
+  border: 1px solid #c8d0d8 !important;
   border-radius: 10px;
   padding: 1.2rem 1.5rem;
   font-family: 'Courier New', monospace;
   font-size: 0.88rem;
   line-height: 1.6;
   overflow-x: auto;
-  position: relative;
   white-space: pre;
 }
 
-.bibtex-copy-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #4A90D9 !important;
-  border: 1px solid #3A7BC8 !important;
-  color: #fff !important;
-  padding: 4px 10px;
+.bibtex-copy-btn-below {
+  background: #4A90D9;
+  border: 1px solid #3A7BC8;
+  color: #fff;
+  padding: 6px 16px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   transition: background 0.2s ease;
 }
 
-.bibtex-copy-btn:hover {
-  background: #3A7BC8 !important;
+.bibtex-copy-btn-below:hover {
+  background: #3A7BC8;
 }
 
 /* ===== Table of Contents ===== */
