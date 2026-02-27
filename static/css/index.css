@@ -371,8 +371,8 @@ figcaption.image-caption {
 .toc-wrapper {
   position: fixed;
   top: 100px;
-  left: 12px;
-  right: auto;
+  right: 12px;
+  left: auto;
   width: 150px;
   background: #fff;
   padding: 10px 12px;
